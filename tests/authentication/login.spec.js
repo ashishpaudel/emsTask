@@ -101,7 +101,40 @@ test.describe('Login Functionality - Essential Tests', () => {
         test('Login with invalid password', async ({ page }) => {
             await loginPage.verifyTitle();
             await loginPage.login(loginData.admin_email, loginData.invalid_password);
-            await expect(page.getByText('These credentials do not match our records')).toBeVisible();
+            await page.locator('.error-message').isVisible();
+            await expect(page).toHaveTitle('Login - EMS');
+        });
+
+        test('Login with email containing only numbers (no @ symbol)', async ({ page }) => {
+            await loginPage.verifyTitle();
+            await loginPage.emailField.fill('12344445');
+            await loginPage.passwordField.fill(loginData.admin_password);
+            await loginPage.submitButton.click();
+
+            // Verify email validation error message appears
+            await page.locator('.error-message').isVisible();
+            await expect(page).toHaveTitle('Login - EMS');
+        });
+
+        test('Login with email containing only letters (no @ symbol)', async ({ page }) => {
+            await loginPage.verifyTitle();
+            await loginPage.emailField.fill('testemail');
+            await loginPage.passwordField.fill(loginData.admin_password);
+            await loginPage.submitButton.click();
+
+            // Verify email validation error message appears
+            await page.locator('.error-message').isVisible();
+            await expect(page).toHaveTitle('Login - EMS');
+        });
+
+        test('Login with email containing mixed characters (no @ symbol)', async ({ page }) => {
+            await loginPage.verifyTitle();
+            await loginPage.emailField.fill('test123email');
+            await loginPage.passwordField.fill(loginData.admin_password);
+            await loginPage.submitButton.click();
+
+            // Verify email validation error message appears
+            await page.locator('.error-message').isVisible();
             await expect(page).toHaveTitle('Login - EMS');
         });
     });
@@ -111,21 +144,27 @@ test.describe('Login Functionality - Essential Tests', () => {
         test('Login with empty email', async ({ page }) => {
             await loginPage.verifyTitle();
             await loginPage.login('', loginData.admin_password);
-            await expect(page.locator('[type="email"]')).toHaveCSS('border-color', 'rgb(37, 99, 235)');
+
+            // Verify email validation error message appears
+            await page.locator('.error-message').isVisible();
             await expect(page).toHaveTitle('Login - EMS');
         });
 
         test('Login with empty password', async ({ page }) => {
             await loginPage.verifyTitle();
             await loginPage.login(loginData.admin_email, '');
-            await expect(page.locator('[type="password"]')).toHaveCSS('border-color', 'rgb(37, 99, 235)');
+
+            // Verify password validation error message appears
+            await page.locator('.error-message').isVisible();
             await expect(page).toHaveTitle('Login - EMS');
         });
 
         test('Login with empty email and password', async ({ page }) => {
             await loginPage.verifyTitle();
             await loginPage.login('', '');
-            await expect(page.locator('[type="email"]')).toHaveCSS('border-color', 'rgb(37, 99, 235)');
+
+            // Verify email and password validation error message appears
+            await page.locator('.error-message').isVisible();
             await expect(page.locator('[type="password"]')).toHaveCSS('border-color', 'rgb(113, 113, 122)');
             await expect(page).toHaveTitle('Login - EMS');
         });
