@@ -1,0 +1,23 @@
+{
+  "name": "emstask",
+  "version": "1.0.0",
+  "description": "This is task for QA automation engineer.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashishpaudel/emsTask.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ashishpaudel/emsTask/issues"
+  },
+  "homepage": "https://github.com/ashishpaudel/emsTask#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.5.2"
+  }
+}
