@@ -29,6 +29,7 @@ export class DashboardPage {
         this.todayUpdatesCard = page.locator('.fi-layout .grid div').filter({ hasText: 'Update' }).first();
         
        
+        this.tableData = page.locator('.fi-layout .grid div').filter({ hasText: 'table' }).first();
 
 
 
@@ -68,7 +69,7 @@ export class DashboardPage {
     async verifyUserCard() {
         await expect(this.userCard).toBeVisible();
         // Check if card contains User-related text (more flexible)
-        await expect(this.userCard).toContainText(/User/);
+        await expect(this.userCard).toContainText('User');
         await expect(this.userCard).toContainText(/\d+/); // Any number
         await expect(this.userCard).toContainText(/Total User|Users?/i); // Case insensitive, optional plural
     }
@@ -99,6 +100,17 @@ export class DashboardPage {
         await expect(this.todayUpdatesCard).toContainText(/Today Update|Update/i);
         await expect(this.todayUpdatesCard).toContainText(/\d+/);
         await expect(this.todayUpdatesCard).toContainText(/Today Updates?/i);
+    }
+
+    async verifyTableData() {
+        await expect(this.tableData).toBeVisible();
+        await expect(this.tableData).toContainText('User Table');
+        await expect(this.tableData).toContainText('Name');
+        await expect(this.tableData).toContainText('Email');
+        await expect(this.tableData).toContainText('Contact');
+        await expect(this.tableData).toContainText('Department');
+        await expect(this.tableData).toContainText('Designation');
+       
     }
 }
 

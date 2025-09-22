@@ -76,5 +76,21 @@ test.describe('Dashboard Data Accuracy Verification', () => {
     await dashboard.verifyTodayUpdatesCard();
    
   });
-});
 
+  test.describe('Dashboard table data verification', () => {
+    let loginPage, dashboard;
+  
+    test.beforeEach(async ({ page }) => {
+      loginPage = new LoginPage(page);
+      dashboard = new DashboardPage(page);
+      await loginPage.goto();
+    });
+  
+    test('any valid users can access table data', async ({ page }) => {
+      await loginPage.login(loginData.admin_email, loginData.admin_password);
+      await loginPage.verifyLogin();
+      await dashboard.verifyTableData();
+    })
+     
+    });
+});
