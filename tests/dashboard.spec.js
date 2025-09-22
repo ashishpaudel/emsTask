@@ -57,3 +57,24 @@ test.describe('Sign Out Button Validation', () => {
   });
 });
 
+test.describe('Dashboard Data Accuracy Verification', () => {
+  let loginPage, dashboard;
+
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    dashboard = new DashboardPage(page);
+    await loginPage.goto();
+  });
+
+  test('any valid users can access dashboard complete dashboard data', async ({ page }) => {
+    await loginPage.login(loginData.admin_email, loginData.admin_password);
+    await loginPage.verifyLogin();
+    await dashboard.verifyUserCard();
+    await dashboard.verifyDepartmentCard();
+    await dashboard.verifyProjectCard();
+    await dashboard.verifyTotalUpdatesCard();
+    await dashboard.verifyTodayUpdatesCard();
+   
+  });
+});
+
