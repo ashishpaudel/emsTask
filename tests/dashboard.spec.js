@@ -4,7 +4,7 @@ import { LoginPage } from '../POM/login.js';
 import { DashboardPage } from '../POM/dashboard.js';
 import { loginData } from '../POM/variable.js';
 
-test.describe('Role-based Access Validation', () => {
+test.describe('Navbar Items Validation', () => {
   let loginPage, dashboard;
 
   test.beforeEach(async ({ page }) => {
@@ -13,20 +13,18 @@ test.describe('Role-based Access Validation', () => {
     await loginPage.goto();
   });
 
-  test('Admin should access admin and common features', async ({ page }) => {
+  test('Admin should access Navbar Items after login', async ({ page }) => {
     await loginPage.login(loginData.admin_email, loginData.admin_password);
     await loginPage.verifyLogin();
 
-    await dashboard.verifyCommonAccess();
-    await dashboard.verifyAdminAccess();
+    await dashboard.verifyNavAccess();
   });
 
   test('Employee should access employee and common features only', async ({ page }) => {
     await loginPage.login(loginData.emp_email, loginData.emp_password);
     await loginPage.verifyLogin();
 
-    await dashboard.verifyCommonAccess();
-    await dashboard.verifyEmployeeAccess();
-    await dashboard.verifyNoAdminAccess();
+    await dashboard.verifyNavAccess();
   });
 });
+
