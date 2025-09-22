@@ -12,6 +12,9 @@ export class DashboardPage {
         this.requestsBtn = page.getByRole('link', { name: 'Requests' });
         this.updatesBtn = page.getByRole('link', { name: 'Updates' });
         this.usersBtn = page.getByRole('link', { name: 'Users' });
+        this.signOutBtn = page.getByRole('button', { name: 'Sign Out' });
+
+    
     }
 
     async verifyNavAccess() {
@@ -23,6 +26,14 @@ export class DashboardPage {
         await expect(this.usersBtn).toBeVisible();
         await expect(this.departmentsBtn).toBeVisible();
         await expect(this.projectsBtn).toBeVisible();
+    }
+
+    async verifySignOut() {
+        await expect(this.signOutBtn).toBeVisible();
+    }
+
+    async clickSignOut() {
+        await this.signOutBtn.click();
     }
 }
 
